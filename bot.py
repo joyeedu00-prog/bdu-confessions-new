@@ -2,7 +2,6 @@ import os
 import sqlite3
 import time
 import logging
-from dotenv import load_dotenv
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ApplicationBuilder,
@@ -13,9 +12,7 @@ from telegram.ext import (
     filters,
 )
 
-# Load variables from .env file
-load_dotenv()
-
+# Render injects environment variables directly into the system environment
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_CHAT_ID = int(os.getenv("ADMIN_CHAT_ID", "0"))
 CHANNEL_ID = os.getenv("CHANNEL_ID")
@@ -169,7 +166,7 @@ async def handle_decision(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def main():
     if not BOT_TOKEN or not ADMIN_CHAT_ID or not CHANNEL_ID:
-        raise ValueError("Missing critical configuration in .env file.")
+        raise ValueError("Missing critical configuration in environment variables.")
 
     init_db()
 
